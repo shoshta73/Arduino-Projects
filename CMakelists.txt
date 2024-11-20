@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(ArduinoProjects LANGUAGES C CXX)
+set(PROJECT_DISPLAY_NAME "Arduino Projects")
+
+# Vendor projects
+add_subdirectory(vendor/raylib)
+
+# MyProjects
+add_subdirectory(GameOfLife)
