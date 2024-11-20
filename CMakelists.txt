@@ -7,4 +7,4 @@ set(PROJECT_DISPLAY_NAME "Arduino Projects")
 add_subdirectory(vendor/raylib)
 
 # MyProjects
-add_subdirectory(GameOfLife)
+add_subdirectory(DesktopDemos)
