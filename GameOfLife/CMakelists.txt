@@ -1,5 +1,5 @@
 file(GLOB GOL_SRCS src/*.cc)
 
 add_executable(GameOfLife ${GOL_SRCS})
-
+target_link_libraries(GameOfLife raylib)
 
