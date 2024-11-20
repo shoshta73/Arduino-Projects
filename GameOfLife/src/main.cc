@@ -7,20 +7,20 @@
 #define WIDTH 100
 #define HEIGHT WIDTH
 
-bool current_grid[ROWS * COLS];
-bool next_grid[ROWS * COLS];
-
 int
 main(void)
 {
+	bool* current = new bool[ROWS * COLS];
+	bool* next = new bool[ROWS * COLS];
+
 	for (int i = 0; i < ROWS * COLS; i++) {
-		current_grid[i] = GetRandomValue(0, 1) ? true : false;
-		next_grid[i] = false;
+		current[i] = GetRandomValue(0, 1) ? true : false;
+		next[i] = false;
 	}
 
 	InitWindow(COLS * WIDTH, ROWS * HEIGHT, "GameOfLife");
 
-	SetTargetFPS(60);
+	SetTargetFPS(1);
 
 	while (!WindowShouldClose()) {
 		BeginDrawing();
@@ -31,8 +31,8 @@ main(void)
 			int x = i % 12;
 			int y = i / 12;
 
-			bool cell = current_grid[i];
-			next_grid[i] = !cell;
+			bool cell = current[i];
+			next[i] = !cell;
 
 			if (cell)
 				DrawRectangle(x * WIDTH, y * HEIGHT, WIDTH, HEIGHT, RED);
@@ -45,9 +45,16 @@ main(void)
 			DrawLine(0, y * HEIGHT + HEIGHT, COLS * WIDTH, y * HEIGHT + HEIGHT, BLACK);
 
 		EndDrawing();
+
+		bool* tmp = current;
+		current = next;
+		next = tmp;
 	}
 
 	CloseWindow();
+
+	delete[] current;
+	delete[] next;
 
 	return 0;
 }
