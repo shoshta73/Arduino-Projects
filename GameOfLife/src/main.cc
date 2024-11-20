@@ -13,9 +13,11 @@ main(void)
 	bool* current = new bool[ROWS * COLS];
 	bool* next = new bool[ROWS * COLS];
 
-	for (int i = 0; i < ROWS * COLS; i++) {
-		current[i] = GetRandomValue(0, 1) ? true : false;
-		next[i] = false;
+	for (int x = 0; x < COLS; x++) {
+		for (int y = 0; y < ROWS; y++) {
+			current[y * COLS + x] = GetRandomValue(0, 1) ? true : false;
+			next[y * COLS + x] = false;
+		}
 	}
 
 	InitWindow(COLS * WIDTH, ROWS * HEIGHT, "GameOfLife");
@@ -27,15 +29,14 @@ main(void)
 
 		ClearBackground(WHITE);
 
-		for (int i = 0; i < ROWS * COLS; i++) {
-			int x = i % 12;
-			int y = i / 12;
+		for (int x = 0; x < COLS; x++) {
+			for (int y = 0; y < ROWS; y++) {
+				bool cell = current[y * COLS + x];
+				next[y * COLS + x] = !cell;
 
-			bool cell = current[i];
-			next[i] = !cell;
-
-			if (cell)
-				DrawRectangle(x * WIDTH, y * HEIGHT, WIDTH, HEIGHT, RED);
+				if (cell)
+					DrawRectangle(x * WIDTH, y * HEIGHT, WIDTH, HEIGHT, RED);
+			}
 		}
 
 		for (int x = 0; x < COLS - 1; x++)
